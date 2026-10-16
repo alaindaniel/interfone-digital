@@ -7,9 +7,9 @@ import {
   Phone, DoorClosed, Lock, Unlock
 } from 'lucide-react';
 
-// Use the host that served the dashboard so it also works from another device
-// on the local network, where `localhost` refers to that other device.
-const API_BASE = import.meta.env.VITE_API_URL || `${window.location.protocol}//${window.location.hostname}:4000`;
+// Use the local host during development or the cloud Render API in production.
+const isLocalDev = typeof window !== 'undefined' && (window.location.port === '3001' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.'));
+const API_BASE = import.meta.env.VITE_API_URL || (isLocalDev ? `${window.location.protocol}//${window.location.hostname}:4000` : 'https://interfone-api.onrender.com');
 
 export default function AdminDashboard() {
   const [token, setToken] = useState(localStorage.getItem('interfone_admin_token') || '');

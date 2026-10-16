@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { Phone, PhoneOff, Mic, MicOff, Video, VideoOff, Camera, Building2, User, ShieldAlert, Clock, ArrowRight, Volume2, CheckCircle2, RefreshCw } from 'lucide-react';
 
-// Keep the API on the same computer that served this page.  `localhost` would
-// point to the visitor's phone when the QR code is opened on the local network.
-const API_BASE = import.meta.env.VITE_API_URL || `${window.location.protocol}//${window.location.hostname}:4000`;
+// Keep the API on the same computer when running locally on port 3000, or use the cloud backend on Render.
+const isLocalDev = typeof window !== 'undefined' && (window.location.port === '3000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.'));
+const API_BASE = import.meta.env.VITE_API_URL || (isLocalDev ? `${window.location.protocol}//${window.location.hostname}:4000` : 'https://interfone-api.onrender.com');
 
 class RingtonePlayer {
   constructor() { this.ctx = null; this.osc1 = null; this.osc2 = null; this.gain = null; this.timer = null; }

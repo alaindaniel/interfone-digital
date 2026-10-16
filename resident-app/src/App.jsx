@@ -25,16 +25,15 @@ import {
   RefreshCw
 } from 'lucide-react';
 
-const DEFAULT_API_HOST = import.meta.env.VITE_API_URL || 'http://192.168.1.16:4000';
+const DEFAULT_API_HOST = import.meta.env.VITE_API_URL || 'https://interfone-api.onrender.com';
 
 function getInitialApiBase() {
   try {
     const saved = localStorage.getItem('interfone_server_url');
-    if (saved && saved.trim()) return saved.trim();
+    if (saved && saved.trim() && !saved.includes('192.168.')) return saved.trim();
     if (typeof window !== 'undefined' && window.location) {
-      if (window.location.port === '3002') return 'http://localhost:4000';
-      if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        return `http://${window.location.hostname}:4000`;
+      if (window.location.port === '3002') {
+        return `${window.location.protocol}//${window.location.hostname}:4000`;
       }
     }
   } catch(e) {}

@@ -74,7 +74,8 @@ public class IntercomForegroundService extends Service {
                 }
             }
             if (userId == null) userId = prefs.getString("userId", null);
-            if (apiBase == null) apiBase = prefs.getString("apiBase", "http://192.168.1.16:4000");
+            if (apiBase == null) apiBase = prefs.getString("apiBase", "https://interfone-api.onrender.com");
+            if (apiBase != null && apiBase.contains("192.168.")) apiBase = "https://interfone-api.onrender.com";
 
             Intent notificationIntent = new Intent(this, MainActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
