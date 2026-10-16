@@ -372,9 +372,8 @@ router.get('/qrcodes/:id/png', async (req, res) => {
   const qr = db.findById('qr_codes', req.params.id);
   if (!qr) return res.status(404).send('QR Code não encontrado');
 
-  const host = req.get('host');
-  const protocol = req.protocol;
-  const visitorUrl = `${protocol}://${host}/v/${qr.token}`;
+  const visitorBaseUrl = (process.env.VISITOR_URL || 'https://interfone-digital.vercel.app').replace(/\/$/, '');
+  const visitorUrl = `${visitorBaseUrl}/v/${qr.token}`;
 
   try {
     res.setHeader('Content-Type', 'image/png');
@@ -397,11 +396,10 @@ router.get('/qrcodes/:id/print-sheet', async (req, res) => {
   if (!qr) return res.status(404).json({ error: 'QR Code não encontrado' });
 
   const org = db.findById('organizations', qr.organizationId);
-  const ap = db.findById('access_points', qr.accessPointId);
+  const ap = db.findById('accessPointId', qr.accessPointId) || db.findById('access_points', qr.accessPointId);
 
-  const host = req.get('host');
-  const protocol = req.protocol;
-  const visitorUrl = `${protocol}://${host}/v/${qr.token}`;
+  const visitorBaseUrl = (process.env.VISITOR_URL || 'https://interfone-digital.vercel.app').replace(/\/$/, '');
+  const visitorUrl = `${visitorBaseUrl}/v/${qr.token}`;
   const qrDataUrl = await QRCode.toDataURL(visitorUrl, { width: 400, margin: 2 });
 
   res.json({
