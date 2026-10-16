@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: qr_intercom_backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/secrets:/app/secrets:ro
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - FIREBASE_SERVICE_ACCOUNT_PATH=/app/secrets/firebase-service-account.json
+
+  visitor:
+    build: ./web-visitor
+    container_name: qr_intercom_visitor
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  resident:
+    build: ./resident-app
+    container_name: qr_intercom_resident
+    restart: unless-stopped
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+
+  admin:
+    build: ./admin-dashboard
+    container_name: qr_intercom_admin
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend

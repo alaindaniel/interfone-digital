@@ -1,0 +1,14 @@
+{
+  "name": "interfone-digital-root",
+  "version": "1.0.0",
+  "description": "Sistema Completo de Interfone Digital por QR Code",
+  "scripts": {
+    "dev:backend": "cd backend && npm start",
+    "dev:visitor": "cd web-visitor && npm run dev",
+    "dev:resident": "cd resident-app && npm run dev",
+    "dev:admin": "cd admin-dashboard && npm run dev",
+    "test:e2e": "node test-e2e.js",
+    "test": "node test-e2e.js",
+    "seed": "cd backend && node src/database/seed.js"
+  }
+}

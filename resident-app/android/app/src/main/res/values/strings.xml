@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Interfone Morador</string>
+    <string name="title_activity_main">Interfone Morador</string>
+    <string name="package_name">br.com.interfone.morador</string>
+    <string name="custom_url_scheme">br.com.interfone.morador</string>
+</resources>

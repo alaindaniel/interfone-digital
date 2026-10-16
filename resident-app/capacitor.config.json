@@ -1,0 +1,14 @@
+{
+  "appId": "br.com.interfone.morador",
+  "appName": "Interfone Morador",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true,
+    "allowNavigation": ["*"]
+  },
+  "android": {
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": true
+  }
+}

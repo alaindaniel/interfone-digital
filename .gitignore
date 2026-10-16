@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds
+dist/
+*/dist/
+build/
+*/build/
+
+# Android build outputs and caches
+.gradle/
+*/.gradle/
+resident-app/android/.gradle/
+resident-app/android/build/
+resident-app/android/app/build/
+resident-app/android/.idea/
+*.apk
+*.aab
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+secrets/
+*/secrets/
+firebase-service-account*.json
+*/firebase-service-account*.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS / Editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
