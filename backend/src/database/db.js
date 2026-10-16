@@ -62,7 +62,7 @@ class Database {
           if (error) {
             console.warn(`[DATABASE] Aviso ao buscar tabela '${table}' no Supabase:`, error.message);
           } else if (data && data.length > 0) {
-            this.data[table] = data.map(supabaseClient.toCamelCase);
+            this.data[table] = data.map(row => supabaseClient.toCamelCase(row, table));
             console.log(`[DATABASE] Tabela '${table}' carregada com ${data.length} registro(s) do Supabase.`);
           }
         } catch (tableErr) {
@@ -119,7 +119,7 @@ class Database {
     if (supabaseClient.isConfigured()) {
       supabaseClient.supabase
         .from(table)
-        .upsert(supabaseClient.toSnakeCase(newRecord))
+        .upsert(supabaseClient.toSnakeCase(newRecord, table))
         .then(({ error }) => {
           if (error) console.error(`[SUPABASE] Erro no upsert na tabela '${table}':`, error.message);
         })
@@ -144,7 +144,7 @@ class Database {
     if (supabaseClient.isConfigured()) {
       supabaseClient.supabase
         .from(table)
-        .update(supabaseClient.toSnakeCase({ ...updates, updatedAt: list[index].updatedAt }))
+        .update(supabaseClient.toSnakeCase({ ...updates, updatedAt: list[index].updatedAt }, table))
         .eq('id', id)
         .then(({ error }) => {
           if (error) console.error(`[SUPABASE] Erro no update na tabela '${table}':`, error.message);
